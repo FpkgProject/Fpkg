@@ -3,6 +3,8 @@ package main
 import (
 	"flag"
 	"fmt"
+
+	"github.com/FpkgProject/Fpkg/config"
 )
 
 func contextSwitch(flagChoosed string, packageName string){
@@ -14,7 +16,7 @@ func contextSwitch(flagChoosed string, packageName string){
     }
 }
 
-func main(){
+func init_flags(){
     contextInstall := flag.String("install", "", "Install a new Package")
     contextUninstall := flag.String("uninstall", "", "Uninstall a new Package")
     flag.Parse()
@@ -26,4 +28,9 @@ func main(){
     if *contextUninstall != ""{
         contextSwitch("--uninstall", *contextUninstall)
     }
+}
+
+func main(){
+  config.InitConfig()
+  init_flags()
 }
