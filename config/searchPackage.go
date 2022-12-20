@@ -1,8 +1,10 @@
 package config
 
 import (
-	"log"
+	"fmt"
 	"os"
+
+	"github.com/FpkgProject/Fpkg/utils"
 )
 
 var filterLicenseWhitelist []string
@@ -13,12 +15,15 @@ var giteaInstances []string
 var searchInGitea bool = false
 var searchInGithub bool = true
 
-func InitConfig(){
-  if _, err := os.Stat("fpkg.cfg"); err != nil{
-    _, err := os.Create("fpkg.cfg")
-    if err != nil{
-      log.Fatal("Erro em criar fpkg.cfg: ", err)
-    }
-    log.Println("Arquivo de configuração criado com sucesso")
-  }
+func readFile() {
+	fmt.Println("Lendo o arquivo fpkg.cfg")
+}
+
+// Warning (the fpkg.cfg need exists in /etc/fpkg.cfg)
+func InitConfig() {
+	if utils.VerifyIfFileExists("fpkg.cfg") == false {
+		os.Create("fpkg.cfg")
+	} else {
+		readFile()
+	}
 }
